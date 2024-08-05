@@ -1,0 +1,17 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    background-color: #FFFFFF;
+    width: 100%;
+    z-index: 999;
+    color: black;
+    height: 30px;
+    font-size: 14px;
+    border: 2px solid;
+    border-image-slice: 1;
+    /* border-top-color: #8D2621; */
+    border-image-source: linear-gradient(to right, #8D2621, #ffa319);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}

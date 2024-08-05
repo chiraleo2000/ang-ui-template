@@ -1,0 +1,16 @@
+<dx-button
+    [class]="widgetClass"
+    [type]="type"
+    [text]="text"
+    [icon]="icon"
+    [height]="height"
+    [width]="width"
+    [stylingMode]="stylingMode"
+    [disabled]="disabled"
+    [visible]="visible"
+    [hint]="hint"
+    (onClick)="onClicked($event)"
+    (onInitialized)="onInitialized($event)"
+>
+    <ng-content></ng-content>
+</dx-button>

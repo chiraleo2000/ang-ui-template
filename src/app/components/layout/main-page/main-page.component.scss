@@ -1,0 +1,11 @@
+.main-panel {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    min-height: calc(95vh - 0px);
+    transition-duration: 500ms;
+}
+
+.cm-content {
+    padding: 5px 20px 40px;
+}

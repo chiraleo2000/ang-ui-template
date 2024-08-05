@@ -1,0 +1,42 @@
+<div class="sidebar" id="sidebar-menu">
+    <div class="logo">
+        <a class="simple-text logo-normal">
+            <img class="image-header" alt="" src="./assets/img/headerlogo.png">
+        </a>
+        <div class=" font-head-sidebar">
+            ระบบจัดการสิทธิ์
+        </div>
+    </div>
+    <div class="sidebar-wrapper">
+        <div  class="sidebar-header pb-3">
+            <div class="sidebar-top">
+                <span class="font-sidebar-role">บทบาท</span>
+            </div>
+
+            <dx-form width="90%" class="m-auto">
+                <dxi-item template="tempRole">
+                    <dxo-label>บทบาท</dxo-label>
+                </dxi-item>
+                <div *dxTemplate="let data of 'tempRole'">
+                    <dx-select-box #roleBox [wrapItemText]="true" [(value)]="curRoleId" text="บทบาท" valueExpr="RoleId"
+                        [items]="roleList" displayExpr="RoleName" placeholder="เลือกบทบาท"
+                        (onValueChanged)="onRoleSelected($event)">
+                    </dx-select-box>
+                </div>
+            </dx-form>
+        </div>
+        <dx-tree-view class="main-sidebar" [dataSource]="_menuDataSource" [hoverStateEnabled]="false"
+            [focusStateEnabled]="false" [selectNodesRecursive]="true" noDataText="" dataStructure="plain"
+            keyExpr="MODULE_ID" displayExpr="MODULE_NAME" parentIdExpr="MODULE_PARENT_ID" itemTemplate="_menuList"
+            (onItemClick)="menuClicked($event)" (onItemSelectionChanged)="onTreeViewItemSelectionChanged($event)">
+            <div *dxTemplate="let item of '_menuList'">
+                <div class="nav-link d-flex">
+                    <i style="margin-top: 3px;margin-right: 10px;" class='fas {{item.MODULE_ICON}}'></i>
+                    <div class="pl-3 dx-field-value">
+                        {{item.MODULE_NAME}}
+                    </div>
+                </div>
+            </div>
+        </dx-tree-view>
+    </div>
+</div>

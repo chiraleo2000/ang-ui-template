@@ -1,0 +1,162 @@
+trigger:
+- master
+
+pool:
+  name: Default
+  vmImage: ubuntu-latest
+
+resources:
+  repositories:
+  - repository: dotnet-api-template
+    type: git
+    name: dotnet-api-template/dotnet-api-template
+  - repository: ang-ui-template
+    type: git
+    name: ang-ui-template/ang-ui-template
+
+variables:
+  buildConfiguration: 'Release'
+  GIT_PASSWORD: 'P@ssw0rd'
+stages:
+- stage: Build_and_Test
+  displayName: 'Build and Test Projects'
+  jobs:
+  - job: Build
+    displayName: 'Build Projects'
+    steps:
+    # Checkout ASP.NET Repository
+    - checkout: ang-ui-template
+      persistCredentials: true  # This ensures the token is used for authentication
+    - script: |
+        rm -rf dotnet-api-template
+        git config --global credential.helper '!f() { echo "username=Administrator"; echo "password=$(GIT_PASSWORD)"; }; f'
+        git -c http.sslVerify=false clone https://Administrator@eaudit03.oagid.local/DefaultCollection/dotnet-api-template/_git/dotnet-api-template
+      displayName: 'Clone repository with authentication'
+      env:
+        GIT_PASSWORD: $(GIT_PASSWORD)
+
+    # Install .NET 6 SDK
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '6.x'
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+
+    # Restore dependencies
+    - script: dotnet restore dotnet-api-template.sln
+      workingDirectory: 'dotnet-api-template'
+      displayName: 'Restore dependencies'
+
+    # Build the project
+    - script: dotnet restore dotnet-api-template.csproj
+      workingDirectory: 'dotnet-api-template'
+      displayName: 'Build project'
+
+    # Optional: Run tests
+    # - script: dotnet test oag-tsea-ds-api.csproj --configuration]
+    #   workingDirectory: 'dotnet-api-template'
+    #   displayName: 'Run tests'
+
+    # Publish the project
+    - script: dotnet publish dotnet-api-template.csproj --output $(Build.ArtifactStagingDirectory)
+      workingDirectory: 'dotnet-api-template'  
+      displayName: 'Publish project'
+
+    # Build Docker Image for .NET API
+    - script: |
+        docker build -t dotnet-api-template:$(DOCKERVERSION_API) -f $(Build.SourcesDirectory)/dotnet-api-template/Dockerfile .
+      workingDirectory: 'dotnet-api-template'
+      displayName: 'Build Docker Image for .NET API'
+
+
+    # Create Docker Image Artifact
+    - script: |
+        docker save dotnet-api-template:$(DOCKERVERSION_API) | gzip > dotnet-api-template$(DOCKERVERSION_API).tar.gz
+      workingDirectory: 'dotnet-api-template'
+      displayName: 'Create Docker Image Artifact'
+
+    # Stop and remove any containers using the specified port
+    - script: |
+        containerId=$(docker ps -q --filter "publish=$(PORT1)")
+        if [ ! -z "$containerId" ]
+        then
+          docker stop $containerId
+          docker rm $containerId
+        fi
+      workingDirectory: 'dotnet-api-template'
+      displayName: 'Stop and Remove Existing Docker Containers'
+
+    # Checkout Angular Repository
+    - checkout: ang-ui-template
+
+    # Install Node.js for Angular
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '20.x'
+      displayName: 'Install Node.js'
+
+    # Install specific Angular CLI version for Angular 11
+    - script: npm install -g @angular/cli@11
+      workingDirectory: 'ang-ui-template'
+      displayName: 'Install Angular CLI'
+
+    # Install npm packages for Angular project
+    - script: |
+        # Remove the existing node_modules directory if it exists
+        if [ -d "node_modules" ]; then
+          rm -rf node_modules
+        fi
+
+        # Remove the package-lock.json file if it exists
+        if [ -f "package-lock.json" ]; then
+          rm package-lock.json
+        fi
+
+        # Install npm packages with legacy peer dependencies
+        npm install --legacy-peer-deps
+      workingDirectory: 'ang-ui-template'
+      displayName: 'Install npm packages'
+
+    # Build Angular project
+    - script: ng build
+      workingDirectory: 'ang-ui-template'
+      displayName: 'Build Angular Project'
+
+    # Build Docker Image for Angular UI
+    - script: |
+        docker build -t angular-ui-template:$(DOCKERVERSION_UI) -f $(Build.SourcesDirectory)/ang-ui-template/Dockerfile .
+      workingDirectory: 'ang-ui-template'
+      displayName: 'Build Docker Image for Angular UI'
+      
+    # Stop and remove any containers using the PORT_API
+    - script: |
+        containerId=$(docker ps -q --filter "publish=$(PORT_API)")
+        if [ ! -z "$containerId" ]
+        then
+          docker stop $containerId
+          docker rm $containerId
+        fi
+      displayName: 'Stop and Remove Existing Docker Containers on API Port'
+      env:
+        PORT_API: $(PORT_API)
+
+    # Stop and remove any containers using the PORT_UI
+    - script: |
+        containerId=$(docker ps -q --filter "publish=$(PORT_UI)")
+        if [ ! -z "$containerId" ]
+        then
+          docker stop $containerId
+          docker rm $containerId
+        fi
+      displayName: 'Stop and Remove Existing Docker Containers on UI Port'
+      env:
+        PORT_UI: $(PORT_UI)
+
+    # Deploy Docker Containers
+    - script: |
+        # Deploy .NET API
+        docker run -d -p $(PORT_API):3543 dotnet-api-template:$(DOCKERVERSION_API)
+
+        # Deploy Angular UI
+        docker run -d -p $(PORT_UI):80 angular-ui-template:$(DOCKERVERSION_UI)
+      displayName: 'Deploy Docker Containers'

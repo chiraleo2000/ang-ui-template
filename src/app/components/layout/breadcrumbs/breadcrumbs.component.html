@@ -1,0 +1,19 @@
+<div class="breadcrumbs-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="title_breadcrumbs">
+                <nav style="--bs-breadcrumb-divider: '>';">
+                    <ol class="breadcrumb">
+                        <ng-container *ngFor="let item of items; let i = index">
+                            <li class="breadcrumb-item" (click)="onBreadcrumbItemClick(item)"
+                                [ngClass]="{'active': i < items.length - 1, 'ahover': !!item.MODULE_URL}">
+                                <i [ngClass]="{'d-none': i > 0}" class="fas {{item.MODULE_ICON}}"></i>
+                                {{item.MODULE_NAME}}
+                            </li>
+                        </ng-container>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

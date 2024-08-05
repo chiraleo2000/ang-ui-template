@@ -1,0 +1,63 @@
+<div class="panel-body ">
+
+    <dx-form [formData]="formAppInfo" style="width: 75%;
+    margin-left: 15%;">
+
+        <!-- รหัส App -->
+        <dxi-item dataField="APP_CODE" editorType="dxTextBox" [editorOptions]="{ placeholder:'รหัส Module',showClearButton:true }">
+            <dxo-label text="รหัส Module"></dxo-label>
+            <dxi-validation-rule type="required" message="กรุณากรอกรหัส Module">
+            </dxi-validation-rule>
+        </dxi-item>
+
+        <dxi-item dataField="APP_SEQ" editorType="dxTextBox" [editorOptions]="{ placeholder:'ลำดับที่ Module' }">
+            <dxo-label text="ลำดับที่ Module"></dxo-label>
+        </dxi-item>
+
+        <!-- ชื่อ App -->
+        <dxi-item dataField="APP_NAME" editorType="dxTextBox" [editorOptions]="{ placeholder:'ชื่อ Module',showClearButton:true }">
+            <dxo-label text="ชื่อ Module"></dxo-label>
+            <dxi-validation-rule type="required" message="กรุณากรอกชื่อ Module">
+            </dxi-validation-rule>
+        </dxi-item>
+
+        <!-- คำอธบาย App -->
+        <dxi-item dataField="APP_REMARK" editorType="dxTextArea" [editorOptions]="{ placeholder:'คำอธิบาย Module',showClearButton:true }">
+            <dxo-label text="คำอธิบาย Module"></dxo-label>
+        </dxi-item>
+
+        <!--Url แอปพลิเคชั่น -->
+        <dxi-item dataField="APP_URL" editorType="dxTextBox" [editorOptions]="{ placeholder:'URL Module',showClearButton:true }">
+            <dxo-label text="URL Module"></dxo-label>
+        </dxi-item>
+
+        <dxi-item dataField="RECORD_STATUS" editorType="dxRadioGroup" [editorOptions]="{value: formAppInfo.RECORD_STATUS,
+                                items:radioActive, valueExpr:'id', displayExpr:'text',
+                                layout:'horizontal'}">
+            <dxo-label text="สถานะการใช้งาน"></dxo-label>
+        </dxi-item>
+    </dx-form>
+
+    <!-- <div>
+        <div class="row">
+            <img #profileImage class="img-thumbnail float-right" [src]="userImagePath" placeholder="assets/img/defaultupload.png" width=200 height=200 style="display: block; margin: 0 auto;">
+        </div>
+        <div class="pull-center" style="text-align: center;  margin-top: 10px;">
+            <dx-button [width]="120" icon="fas fa-image" type="default" text="เลือกรูป" (onClick)="OpenFileDialog($event, upload)"></dx-button>
+            <div class="dx-fileuploader-input-container d-none">
+                <input #upload type="file" accept="image/jpeg" tabindex="-1" class="dx-fileuploader-input" (change)="OnImageAdd(upload)">
+
+            </div>
+        </div>
+    </div> -->
+</div>
+<div class="panel panel-default" style="margin-top:18px; text-align: center; ">
+    <div class="panel-body ">
+        <div class="col-md-12">
+            <dx-button class="back-button btn-size" text="ย้อนกลับ" (onClick)="Back()">
+            </dx-button>
+            <dx-button-improve id="dx-button-improv" class="save-button btn-size" text="บันทึก" (clicked)="Save($event)">
+            </dx-button-improve>
+        </div>
+    </div>
+</div>

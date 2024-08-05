@@ -1,0 +1,163 @@
+.sidebar-wrapper {
+    height: 95vh;
+    box-shadow: 0px 0px 8px 2px #b3aeae75;
+    background-image: url("/src/assets/img/sidebar.png");
+}
+
+bar-btn {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    top: 95px;
+    background-color: #E7D098;
+    position: absolute;
+    right: -16px;
+}
+
+.navbar-btn-collap {
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+    width: 26px;
+    height: 62px;
+    top: -5px;
+    background-color: #E7D098;
+    right: 0px;
+    position: relative;
+}
+
+.logo {
+    position: relative;
+    height: 82px;
+    z-index: 4;
+    background-color: #8D2621;
+    padding: 20px;
+}
+
+.sidebar {
+    position: fixed;
+    transition: .5s;
+    height: 100%;
+    width: 280px;
+    z-index: 1;
+    left: 0;
+    top: 0;
+}
+
+.label-sidebar {
+    font-size: 14px;
+    color: white;
+    padding-bottom: 5px;
+    display: inherit;
+}
+
+.dx-field-value {
+    width: 88% !important;
+    color: black;
+    font-size: 16px;
+}
+
+.fas {
+    font-size: 16px;
+    color: black;
+}
+
+.nav-link {
+    padding: 0.7rem;
+}
+
+::ng-deep .dx-treeview-node-is-leaf.dx-state-selected .nav-link {
+    background: #8D2621;
+    border-radius: 10px;
+
+}
+
+::ng-deep .dx-treeview-node-is-leaf.dx-state-selected .nav-link .dx-field-value {
+    color: #F4B51A;
+}
+
+
+::ng-deep .dx-treeview-node-is-leaf.dx-state-selected .nav-link .fas {
+    color: #F4B51A;
+}
+
+::ng-deep .dx-treeview-item-without-checkbox.dx-state-selected>.dx-treeview-item {
+    color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
+}
+
+::ng-deep .dx-treeview-toggle-item-visibility {
+    color: black !important;
+    height: 42px;
+    margin-left: 250px;
+}
+
+.main-sidebar ::ng-deep .dx-scrollbar-vertical.dx-scrollbar-hoverable {
+    visibility: hidden;
+}
+
+::ng-deep .dx-scrollable-wrapper {
+    position: relative;
+}
+
+::ng-deep .dx-treeview-node-container-opened {
+    font-size: 16px;
+}
+
+::ng-deep .dx-treeview-node {
+    padding-left: 0px !important;
+}
+
+::ng-deep .dx-treeview {
+    height: 77%;
+    overflow: hidden;
+}
+
+.dx-field-value {
+    color: black;
+}
+
+.font-sidebar-role {
+    font-size: 18px;
+    padding-left: 6px;
+    font-weight: bold;
+}
+
+.sidebar-top {
+    width: 100%;
+    padding: 10px;
+}
+
+.line {
+    border-left-style: solid;
+    border-color: white;
+    padding-left: 10px;
+    border-width: 1px;
+}
+
+
+.font-head-sidebar {
+    color: #F4B51A;
+    font-size: 20px;
+    width: 300px;
+    display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 0px;
+    }
+
+    .image-header {
+        height: 40px;
+    }
+
+    .font-head-sidebar {
+        display: inherit;
+        text-align: center;
+    }
+
+    .logo {
+        height: 100px;
+    }
+}

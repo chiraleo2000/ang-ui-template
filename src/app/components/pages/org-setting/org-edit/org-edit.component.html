@@ -1,0 +1,367 @@
+<!-- eslint-disable @angular-eslint/template/alt-text -->
+<div class="panel-body mb-2">
+    <div class="col-md-12 text-right">
+        <dx-button icon="revert" class="back-button btn-size" hint="ย้อนกลับ" text="ย้อนกลับ" (onClick)="Back()">
+        </dx-button>
+        <dx-button-improve id="dx-button-improv" class="save-button btn-size" icon="floppy" text="บันทึก"
+            (clicked)="Save($event)" [useSubmitBehavior]="true">
+        </dx-button-improve>
+    </div>
+</div>
+<div class="card mb-2">
+    <p class="font-kanit-text-all"><span class="not-mainfont fa fa-th-list">&nbsp;</span><span>ข้อมูลหน่วยงาน</span>
+    </p>
+    <div class="card-body">
+        <div class="panel panel-default">
+            <div class="panel-body ">
+                <dx-form [formData]="formOrganize" [colCount]="2">
+                    <!-- รหัสพื้นที่ -->
+                    <dxi-item dataField="ORGANIZE_ARIA_CODE" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'รหัสพื้นที่',showClearButton:true }">
+                        <dxo-label text="รหัสพื้นที่"></dxo-label>
+                    </dxi-item>
+
+                    <!-- ลำดับหน่วยงาน -->
+                    <dxi-item dataField="ORGANIZE_SEQ" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'ลำดับหน่วยงาน',showClearButton:true }">
+                        <dxo-label text="ลำดับหน่วยงาน"></dxo-label>
+                        <dxi-validation-rule type="required" message="กรุณากรอกข้อมูล">
+                        </dxi-validation-rule>
+                    </dxi-item>
+
+                    <!-- ชื่อหน่วยงานภาษาไทย -->
+                    <dxi-item dataField="ORGANIZE_NAME_THA" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'ชื่อหน่วยงานภาษาไทย',showClearButton:true }">
+                        <dxo-label text="ชื่อหน่วยงานภาษาไทย"></dxo-label>
+                        <dxi-validation-rule type="required" message="กรุณาใส่รายละเอียดชื่อหน่วยงาน">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <!-- ชื่อย่อภาษาไทย -->
+                    <dxi-item dataField="ORGANIZE_ABBR_THA" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'ชื่อย่อภาษาไทย',showClearButton:true }">
+                        <dxo-label text="ชื่อย่อภาษาไทย"></dxo-label>
+                    </dxi-item>
+                    <!-- ชื่อหน่วยงานภาษาอังกฤษ -->
+                    <dxi-item dataField="ORGANIZE_NAME_ENG" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'ชื่อหน่วยงานภาษาอังกฤษ',showClearButton:true }">
+                        <dxo-label text="ชื่อหน่วยงานภาษาอังกฤษ"></dxo-label>
+                    </dxi-item>
+                    <!-- ชื่อย่อภาษาอังกฤษ -->
+                    <dxi-item dataField="ORGANIZE_ABBR_ENG" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'ชื่อย่อภาษาอังกฤษ',showClearButton:true }">
+                        <dxo-label text="ชื่อย่อภาษาอังกฤษ"></dxo-label>
+                    </dxi-item>
+                    <!-- รายละเอียดชื่อหน่วยงาน -->
+                    <dxi-item dataField="ORGANIZE_NAME_DETAIL" editorType="dxTextArea" [colSpan]="2"
+                        [editorOptions]="{ placeholder:'รายละเอียดชื่อหน่วยงาน',showClearButton:true }">
+                        <dxo-label text="รายละเอียดชื่อหน่วยงาน"></dxo-label>
+                    </dxi-item>
+                    <!-- ประเภทหน่วยงาน -->
+                    <dxi-item dataField="ORGANIZE_TYPE_ID" template="temporgtype">
+                        <dxo-label text="ประเภทหน่วยงาน">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temporgtype'">
+                        <dx-select-box [dataSource]="orgType" displayExpr="text" valueExpr="id"
+                            placeholder="ประเภทหน่วยงาน" [(value)]="formOrganize.ORGANIZE_TYPE_ID"
+                            [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- รหัสหน่วยงานราชการ อ้างอิง -->
+                    <!-- <dxi-item dataField="GOVERNMENT_ID" editorType="dxTextBox" [colSpan]="1"
+                                    [editorOptions]="{ placeholder:'รหัสหน่วยงานราชการ อ้างอิง',showClearButton:true }">
+                                    <dxo-label text="รหัสหน่วยงานราชการ อ้างอิง"></dxo-label>
+                                </dxi-item> -->
+                    <!-- รหัสประเภทหน่วยงานราชการ อ้างอิง -->
+                    <!-- <dxi-item dataField="GOVERNMENT_TYPE_ID" editorType="dxTextBox" [colSpan]="1"
+                                    [editorOptions]="{ placeholder:'รหัสประเภทหน่วยงานราชการ อ้างอิง',showClearButton:true }">
+                                    <dxo-label text="รหัสประเภทหน่วยงานราชการ อ้างอิง"></dxo-label>
+                                </dxi-item> -->
+                    <!-- หัวหน้าหน่วยงาน -->
+                    <dxi-item dataField="MANAGER_ID" template="tempmanager">
+                        <dxo-label text="หัวหน้าหน่วยงาน">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'tempmanager'">
+                        <dx-select-box [dataSource]="manager" displayExpr="PERSONAL_FULL_NAME" valueExpr="PERSONAL_ID"
+                            placeholder="หัวหน้าหน่วยงาน" [searchEnabled]="true" [(value)]="formOrganize.MANAGER_ID"
+                            [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- รองหัวหน้าหน่วยงาน -->
+                    <dxi-item dataField="MANAGER2_ID" template="tempmanager2">
+                        <dxo-label text="รองหัวหน้าหน่วยงาน">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'tempmanager2'">
+                        <dx-select-box [dataSource]="manager2" displayExpr="PERSONAL_FULL_NAME" valueExpr="PERSONAL_ID"
+                            placeholder="รองหัวหน้าหน่วยงาน" [searchEnabled]="true" [(value)]="formOrganize.MANAGER2_ID"
+                            [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <dxi-item itemType="empty"></dxi-item>
+
+                    <!-- ที่อยู่ -->
+                    <!-- เบอร์โทร -->
+                    <dxi-item dataField="ORGANIZE_TELEPHONE" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'เบอร์โทร',showClearButton:true }">
+                        <dxo-label text="เบอร์โทร"></dxo-label>
+                    </dxi-item>
+                    <!-- เบอร์แฟกซ์ -->
+                    <dxi-item dataField="ORGANIZE_FAX" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'เบอร์แฟกซ์',showClearButton:true }">
+                        <dxo-label text="เบอร์แฟกซ์"></dxo-label>
+                    </dxi-item>
+                    <!-- ชื่อผู้ติดต่อ -->
+                    <dxi-item dataField="ORGANIZE_CONTACT" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'ชื่อผู้ติดต่อ',showClearButton:true }">
+                        <dxo-label text="ชื่อผู้ติดต่อ"></dxo-label>
+                    </dxi-item>
+                    <!-- อีเมล -->
+                    <dxi-item dataField="ORGANIZE_EMAIL" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'อีเมล',showClearButton:true }">
+                        <dxo-label text="อีเมล"></dxo-label>
+                    </dxi-item>
+                    <!-- เลขที่ -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_NO" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'เลขที่',showClearButton:true }">
+                        <dxo-label text="เลขที่"></dxo-label>
+                    </dxi-item>
+                    <!-- หมู่ -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_MOO" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'หมู่',showClearButton:true }">
+                        <dxo-label text="หมู่"></dxo-label>
+                    </dxi-item>
+                    <!-- อาคาร -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_BUILDING" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'อาคาร',showClearButton:true }">
+                        <dxo-label text="อาคาร"></dxo-label>
+                    </dxi-item>
+                    <!-- ซอย -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_SOI" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'ซอย',showClearButton:true }">
+                        <dxo-label text="ซอย"></dxo-label>
+                    </dxi-item>
+                    <!-- ถนน -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_STREET" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ placeholder:'ถนน',showClearButton:true }">
+                        <dxo-label text="ถนน"></dxo-label>
+                    </dxi-item>
+
+                    <!-- จังหวัด -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_PROVINCE" template="tempprovince">
+                        <dxo-label text="จังหวัด" [showColon]="false">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'tempprovince'">
+                        <dx-select-box [dataSource]="province" displayExpr="PROVINCE_NAME_THA" valueExpr="PROVINCE_ID"
+                            searchExpr="PROVINCE_NAME_THA" [searchEnabled]="true" placeholder="จังหวัด"
+                            [(value)]="formOrganize.ORGANIZE_ADDRESS_PROVINCE"
+                            (onValueChanged)="OnSelectProvice($event)">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- อำเภอเขต -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_DISRICT" template="tempdistict">
+                        <dxo-label text="อำเภอ/เขต" [showColon]="false"></dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'tempdistict'">
+                        <dx-select-box [dataSource]="district" displayExpr="DISTRICT_NAME_THA" valueExpr="DISTRICT_ID"
+                            searchExpr="DISTRICT_NAME_THA" [searchEnabled]="true" placeholder="อำเภอ/เขต"
+                            [(value)]="formOrganize.ORGANIZE_ADDRESS_DISRICT" [disabled]="disableDistrict"
+                            (onValueChanged)="OnSelectDistrict($event)">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- ตำบล -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_SUB_DISTRICT" template="tempsubdistict">
+                        <dxo-label text="ตำบล" [showColon]="false"></dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'tempsubdistict'">
+                        <dx-select-box [dataSource]="subdistrict" displayExpr="SUB_DISTRICT_NAME_THA"
+                            valueExpr="SUB_DISTRICT_ID" searchExpr="SUB_DISTRICT_NAME_THA" [searchEnabled]="true"
+                            placeholder="ตำบล" [(value)]="formOrganize.ORGANIZE_ADDRESS_SUB_DISTRICT"
+                            [disabled]="disableSubDistrict" (onValueChanged)="OnSelectSubDistrict($event)">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- รหัสไปรษณีย์ -->
+                    <dxi-item dataField="ORGANIZE_ADDRESS_POSTCODE" template="temppostcode">
+                        <dxo-label text="รหัสไปรษณีย์"></dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temppostcode'">
+                        <dx-select-box [dataSource]="postcode" valueExpr="POSTCODE_ID" [disabled]="disablepostcode"
+                            [(value)]="formOrganize.ORGANIZE_ADDRESS_POSTCODE" displayExpr="POSTCODE_CODE"
+                            placeholder="รหัสไปรษณีย์" (onValueChanged)="OnSerectPostCode($event)">
+                        </dx-select-box>
+                    </div>
+                    <!-- ที่อยู่ -->
+
+                    <!-- สถานะการใช้งาน -->
+                    <dxi-item dataField="RECORD_STATUS" editorType="dxRadioGroup" [editorOptions]="{value: formOrganize.RECORD_STATUS,
+                                    items:radioActive, valueExpr:'id', displayExpr:'text',
+                                    layout:'horizontal'}">
+                        <dxo-label text="สถานะการใช้งาน"></dxo-label>
+                    </dxi-item>
+                </dx-form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-2">
+    <p class="font-kanit-text-all"><span class="not-mainfont fa fa-th-list">&nbsp;</span><span>ระดับหน่วยงาน</span>
+    </p>
+    <div class="card-body">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dx-form [formData]="formOrganize" style="margin: auto;" [colCount]="2">
+                    <!-- รหัสหน่วยงานแม่ Root -->
+                    <dxi-item dataField="ORGANIZE_ROOT_ID" template="temporgall">
+                        <dxo-label text="หน่วยงานแม่">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temporgall'">
+                        <dx-select-box #select [dataSource]="organizeAll" displayExpr="ORGANIZE_NAME_THA" [colSpan]="1"
+                            valueExpr="ORGANIZE_ID" placeholder="หน่วยงานแม่" [searchEnabled]="true"
+                            [(value)]="formOrganize.ORGANIZE_ROOT_ID" (onValueChanged)="OnSelectorg($event)"
+                            [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- ระดับหน่วยงาน -->
+                    <dxi-item dataField="ORGANIZE_LEVEL_ID" template="temporglv">
+                        <dxo-label text="ระดับหน่วยงาน">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temporglv'">
+                        <dx-select-box [dataSource]="orgLv" displayExpr="text" valueExpr="id"
+                            placeholder="ระดับหน่วยงาน" [(value)]="formOrganize.ORGANIZE_LEVEL_ID" [readOnly]="true"
+                            [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- รหัสหน่วยงานแม่ Lv1  กระทรวง -->
+                    <dxi-item dataField="ORGANIZE_CODE_LEV1" template="temporglv1">
+                        <dxo-label text="หน่วยงานแม่ Lv1 กระทรวง" [showColon]="false">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temporglv1'">
+                        <dx-select-box [dataSource]="organizeLv1" displayExpr="ORGANIZE_NAME_THA" [colSpan]="1"
+                            valueExpr="ORGANIZE_ID" searchExpr="ORGANIZE_NAME_THA" [searchEnabled]="true"
+                            placeholder="หน่วยงานแม่ Lv1 กระทรวง" [(value)]="formOrganize.ORGANIZE_CODE_LEV1"
+                            [readOnly]="true" [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- รหัสหน่วยงานแม่ Lv2 กรม -->
+                    <dxi-item dataField="ORGANIZE_CODE_LEV2" template="temporglv2">
+                        <dxo-label text="หน่วยงานแม่ Lv2 กรม" [showColon]="false">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temporglv2'">
+                        <dx-select-box [dataSource]="organizeLv2" displayExpr="ORGANIZE_NAME_THA" [colSpan]="1"
+                            valueExpr="ORGANIZE_ID" searchExpr="ORGANIZE_NAME_THA" [searchEnabled]="true"
+                            placeholder="หน่วยงานแม่ Lv2 กรม" [(value)]="formOrganize.ORGANIZE_CODE_LEV2"
+                            [readOnly]="true" [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- รหัสหน่วยงานแม่ Lv3 สำนัก -->
+                    <dxi-item dataField="ORGANIZE_CODE_LEV3" template="temporglv3">
+                        <dxo-label text="หน่วยงานแม่ Lv3 สำนัก" [showColon]="false">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temporglv3'">
+                        <dx-select-box [dataSource]="organizeLv3" displayExpr="ORGANIZE_NAME_THA" [colSpan]="1"
+                            valueExpr="ORGANIZE_ID" searchExpr="ORGANIZE_NAME_THA" [searchEnabled]="true"
+                            placeholder="หน่วยงานแม่ Lv3 สำนัก" [(value)]="formOrganize.ORGANIZE_CODE_LEV3"
+                            [readOnly]="true" [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- รหัสหน่วยงานแม่ Lv4 กลุ่ม/ส่วน/ฝ่าย -->
+                    <dxi-item dataField="ORGANIZE_CODE_LEV4" template="temporglv4">
+                        <dxo-label text="หน่วยงานแม่ Lv4 กลุ่ม/ส่วน/ฝ่าย" [showColon]="false">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temporglv4'">
+                        <dx-select-box [dataSource]="organizeLv4" displayExpr="ORGANIZE_NAME_THA" [colSpan]="2"
+                            valueExpr="ORGANIZE_ID" searchExpr="ORGANIZE_NAME_THA" [searchEnabled]="true"
+                            placeholder="หน่วยงานแม่ Lv4 กลุ่ม/ส่วน/ฝ่าย" [readOnly]="true"
+                            [(value)]="formOrganize.ORGANIZE_CODE_LEV4" [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+
+                    <!-- รหัสหน่วยงานแม่ Lv5 แผนก -->
+                    <dxi-item dataField template="temporglv5">
+                        <dxo-label text="หน่วยงานแม่ Lv5 แผนก" [showColon]="false">
+                        </dxo-label>
+                    </dxi-item>
+                    <div *dxTemplate="let data of 'temporglv5'">
+                        <dx-select-box [dataSource]="organizeLv5" displayExpr="ORGANIZE_NAME_THA" [colSpan]="2"
+                            valueExpr="ORGANIZE_ID" searchExpr="ORGANIZE_NAME_THA" [searchEnabled]="true"
+                            placeholder="หน่วยงานแม่ Lv5 แผนก" [readOnly]="true"
+                            [(value)]="formOrganize.ORGANIZE_CODE_LEV5" [showClearButton]="true">
+                        </dx-select-box>
+                    </div>
+                </dx-form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-2">
+    <p class="font-kanit-text-all"><span class="not-mainfont fa fa-th-list">&nbsp;</span><span>ข้อมูลหน่วยงาน</span>
+    </p>
+    <div class="card-body">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dx-form [formData]="formOrganize" style="margin: auto;" [colCount]="2">
+                    <!-- URL Web-->
+                    <dxi-item dataField="ORGANIZE_URL_INTERNET" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ value : formOrganize.ORGANIZE_URL_INTERNET ,placeholder:'URL Web',showClearButton:true }">
+                        <dxo-label text="URL Web"></dxo-label>
+                    </dxi-item>
+                    <!-- URL Intranet-->
+                    <dxi-item dataField="ORGANIZE_URL_INTRANET" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{value : formOrganize.ORGANIZE_URL_INTRANET,   placeholder:'URL Intranet',showClearButton:true }">
+                        <dxo-label text="URL Intranet"></dxo-label>
+                    </dxi-item>
+                    <!-- URL DM-->
+                    <dxi-item dataField="ORGANIZE_URL_DM" editorType="dxTextBox" [colSpan]="1"
+                        [editorOptions]="{ value : formOrganize.ORGANIZE_URL_DM,  placeholder:'URL DM',showClearButton:true }">
+                        <dxo-label text="URL DM"></dxo-label>
+                    </dxi-item>
+                </dx-form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="card">
+    <p class="font-kanit-text-all"><span class="not-mainfont fa fa-th-list">&nbsp;</span><span>รูปภาพโลโก้</span>
+    </p>
+    <div class="card-body" style="margin: auto;">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-12">
+                    <div style="max-width:200px;">
+                        <img #profileImage1 class="img-thumbnail" [src]="userImagePath"
+                            placeholder="assets/moi/img/icon/default2.png">
+                    </div>
+                    <div>
+                        <dx-button [width]="200" icon="fas fa-image" type="success" text="เลือกรูป"
+                            (onClick)="OpenFileDialog($event, upload1)"></dx-button>
+                    </div>
+                    <div style="display: none;">
+                        <input #upload1 type="file" accept="image/PNG" tabindex="-1" class="dx-fileuploader-input"
+                            (change)="OnImageAdd(upload1, profileImage1)">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

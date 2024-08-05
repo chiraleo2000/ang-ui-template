@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <div class="card">
+        <dx-multi-view [swipeEnabled]="false" [selectedIndex]="0">
+            <dxi-item>
+                <div class="card-body ">
+                    <div class="panel panel-default">
+                        <dx-tree-list id="tasks" [dataSource]="organize" keyExpr="ORGANIZE_ID"
+                            parentIdExpr="ORGANIZE_LEVEL_PARENT" [columnHidingEnabled]="true" [showColumnLines]="true"
+                            noDataText="ไม่มีข้อมูล" [showRowLines]="true" [showBorders]="true"
+                            [rowAlternationEnabled]="true" [wordWrapEnabled]="true" [hoverStateEnabled]="true"
+                            [selectedRowKeys]="[]">
+                            <dxo-scrolling mode="standard"></dxo-scrolling>
+                            <dxo-paging [enabled]="true" [pageSize]="10">
+                            </dxo-paging>
+                            <dxo-search-panel [visible]="true" [width]="240" placeholder="ค้นหา..."></dxo-search-panel>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]"
+                                [showInfo]="true">
+                            </dxo-pager>
+                            <dxi-column dataField="ORGANIZE_NAME_THA" caption="ชื่อหน่วยงาน" alignment="left">
+                            </dxi-column>
+                            <dxi-column dataField="ORGANIZE_ABBR_THA" caption="ชื่อย่อหน่วยงาน" [width]="130"
+                                alignment="center">
+                            </dxi-column>
+                            <dxi-column dataField="RECORD_STATUS" caption="สถานะการใช้งาน" [width]="130"
+                                alignment="center" [calculateDisplayValue]="GetStatus">
+                            </dxi-column>
+
+                            <dxi-column dataField="" caption="เพิ่ม" [width]="80" alignment="center"
+                                [allowSorting]="false" cellTemplate="cellTemplateCommandAdd"></dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommandAdd'">
+                                <dx-button icon="add" requirePermission="ADD" hint="เพิ่ม" class="btn-add-datagrid" type="success"
+                                (onClick)="Add(d)">
+                            </dx-button>
+                            </div>
+
+                            <dxi-column dataField="" caption="แก้ไข" [width]="80" alignment="center"
+                                [allowSorting]="false" cellTemplate="cellTemplateCommandEdit"></dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommandEdit'">
+                                <dx-button icon="edit" requirePermission="EDIT" hint="แก้ไข" type="default"
+                                    (onClick)="Edit(d)">
+                                </dx-button>
+                            </div>
+                            <dxi-column dataField="" caption="ลบ" [width]="100" alignment="center"
+                                [allowSorting]="false" cellTemplate="cellTemplateCommandDel"></dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommandDel'">
+                                <dx-button-improve [visible]="d.data.ORGANIZE_LEVEL_ID !== 1" icon="trash" hint="ลบ" requirePermission="DELETE" type="danger"
+                                    (clicked)="Delete($event,d)">
+                                </dx-button-improve>
+                            </div>
+
+                            <div *dxTemplate="let cell of 'cellTemplate'">
+                                {{ cell.component.pageIndex() * cell.component.pageSize() + cell.rowIndex + 1 }}
+                            </div>
+                        </dx-tree-list>
+                    </div>
+                </div>
+            </dxi-item>
+            <dxi-item>
+                <app-org-edit [formData]="formOrganize"></app-org-edit>
+            </dxi-item>
+        </dx-multi-view>
+
+    </div>
+</div>
+
+<dx-load-panel shadingColor="rgba(0,0,0,0.4)" [visible]="_isLoading" [showIndicator]="true" [showPane]="true"
+    [shading]="true" [closeOnOutsideClick]="false" message="กำลังโหลดข้อมูล..." shadingColor="rgba(0, 0, 0, 0.2)">
+</dx-load-panel>

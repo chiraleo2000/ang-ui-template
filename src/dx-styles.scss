@@ -1,0 +1,167 @@
+html,
+body {
+    margin: 0px;
+    min-height: 100%;
+    height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.content {
+    line-height: 1.5;
+
+    h2 {
+        font-size: 30px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+.content-block {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+
+    .screen-x-small & {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+.responsive-paddings {
+    padding: 20px;
+
+    .screen-large & {
+        padding: 40px;
+    }
+}
+
+.dx-card.wide-card {
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-right: 0;
+    border-left: 0;
+}
+
+.with-footer>.dx-scrollable-wrapper>.dx-scrollable-container>.dx-scrollable-content {
+    height: 100%;
+
+    &>.dx-scrollview-content {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+}
+
+$side-panel-min-width: 40px;
+
+::ng-deep .dx-datagrid-content .dx-datagrid-table [class*="column"]+[class*="column"]:last-child {
+    float: none;
+    background-color: rgb(235, 235, 235) !important;
+}
+
+
+.button-container {
+    display: flex;
+    align-items: center;
+    padding: 20;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+// NOTE : ปุ่มค้นหาหน้า List
+.btn-search-list {
+    border-radius: 10px !important;
+    color: #ffffff !important;
+    background-color: #8D2621 !important;
+
+}
+
+i.dx-icon.dx-icon-search {
+    color: #FFFFFF !important;
+}
+
+.clear-search {
+    border: 1px solid #8D2621 !important;
+    border-radius: 10px !important;
+    color: #8D2621 !important;
+    background-color: #ffffff !important;
+}
+
+.dx-button-mode-contained .dx-icon {
+    color: #ffffff !important;
+}
+
+.btn-add-datagrid {
+    color: #ffffff !important;
+    background-color: #F4B51A !important;
+}
+
+.btn-edit-datagrid {
+    border-radius: 10px !important;
+    color: #ffffff !important;
+    background-color: #F4B51A !important;
+}
+
+#dx-button-improv .dx-button-mode-contained {
+    border: 1px solid #8D2621 !important;
+    color: #ffffff !important;
+    background-color: #8D2621 !important;
+}
+
+
+// NOTE : ปุ่มบันทึก / ย้อนกลับ หน้า Detail
+
+.button-container-detail {
+    display: flex;
+    align-items: center;
+    padding: 50px 50px 30px 50px;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+
+.back-button,
+.save-button {
+    color: white !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+.dx-icon-revert::before {
+    content: "\f04c";
+    color: #8D2621 !important;
+}
+
+.back-button {
+    border: 1px solid #8D2621 !important;
+    color: #8D2621 !important;
+    margin: 10px !important;
+
+    &:hover {
+        background-color: #FFFFFF !important;
+        color: #8D2621 !important;
+    }
+}
+
+.breadcrumbs-content {
+    padding: 20px 20px 10px 20px;
+}
+
+.save-button {
+    height: 36px !important;
+    width: 110px !important;
+    background-color: #8D2621 !important;
+    color: #FFFFFF !important;
+    margin: 10px !important;
+    border-radius: 5px !important;
+
+}
+
+ิีื::ng-deep dx-button .btn-size {
+    height: 50px !important;
+    width: 120px !important;
+}

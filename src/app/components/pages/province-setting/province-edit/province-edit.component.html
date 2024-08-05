@@ -1,0 +1,29 @@
+<div class="content-form">
+    <div class="content-form">
+        <dx-form [(formData)]="formProvince" labelLocation="top" [colCount]="2">
+            <dxi-item dataField="PROVINCE_NAME_THA" editorType="dxTextBox"
+                [editorOptions]="{ placeholder:'ชื่อจังหวัดภาษาไทย',showClearButton:true }">
+                <dxo-label text="ชื่อจังหวัดภาษาไทย"></dxo-label>
+                <dxi-validation-rule type="required" message="กรุณากรอกชื่อจังหวัดภาษาไทย">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="PROVINCE_NAME_ENG" editorType="dxTextBox"
+                [editorOptions]="{ placeholder:'ชื่อจังหวัดภาษาอังกฤษ',showClearButton:true }">
+                <dxo-label text="ชื่อจังหวัดภาษาอังกฤษ"></dxo-label>
+                <dxi-validation-rule type="required" message="กรุณากรอกชื่อจังหวัดภาษาอังกฤษ">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="RECORD_STATUS" editorType="dxRadioGroup" [editorOptions]="{value: formProvince.RECORD_STATUS,
+                    items:radioActive, valueExpr:'id', displayExpr:'text',
+                    layout:'horizontal'}">
+                <dxo-label text="สถานะการใช้งาน"></dxo-label>
+            </dxi-item>
+        </dx-form>
+    </div>
+    <div class="button-container-detail">
+        <dx-button class="back-button btn-size" text="ย้อนกลับ" (onClick)="back()">
+        </dx-button>
+        <dx-button-improve id="dx-button-improv" class="save-button btn-size" text="บันทึก" (clicked)="save($event)">
+        </dx-button-improve>
+    </div>
+</div>

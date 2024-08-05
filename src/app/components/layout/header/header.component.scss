@@ -1,0 +1,138 @@
+.main-panel .navbar {
+    margin-bottom: 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: .5rem 1rem;
+    background-color: #8D2621;
+    height: 82px;
+    padding-top: 10px;
+}
+
+.navbar-header {
+    width: 100%;
+}
+
+.container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.navbar-expand-lg .navbar-collapse {
+    display: flex !important;
+    margin-left: auto;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+}
+
+.txttitle-user {
+    font-size: 16px;
+    color: white;
+}
+
+.fa-bell::before {
+    content: "\f0f3";
+    font-size: 28px;
+    color: white;
+}
+
+::ng-deep #drophead .dx-button-mode-outlined {
+    border-color: #8D2621;
+}
+
+::ng-deep #drophead .dx-button-mode-outlined .dx-icon {
+    color: white;
+}
+
+::ng-deep #drophead .dx-icon-spindown::before {
+    content: "\f001";
+    font-size: 30px;
+    color: white;
+}
+
+::ng-deep #drophead .dx-button .dx-button-content {
+    padding: 0;
+}
+
+.line {
+    border-left-style: solid;
+    border-color: white;
+    padding-left: 10px;
+    border-width: 1px;
+}
+
+
+.font-head {
+    color: #F4B51A;
+    font-size: 20px;
+}
+
+@media (max-width: 1000px) {
+    .lowui.nav.navbar-nav {
+        display: none;
+    }
+
+    .system-name.nav.navbar-nav {
+        position: absolute;
+        top: 25px;
+    }
+}
+
+#button-responsive {
+    display: none;
+}
+
+#button-responsive-collap {
+    display: none;
+}
+
+
+@media (max-width: 768px) {
+    #button-responsive {
+        display: inherit;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+
+
+        top: 140px;
+        border-bottom-right-radius: 50%;
+        border-top-right-radius: 50%;
+        width: 26px;
+        height: 72px;
+        background-color: #F4B51A;
+    }
+
+
+    #button-responsive-collap {
+        display: inherit;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        top: 95px;
+        background-color: #F4B51A;
+        margin-left: -15px;
+        margin-top: 20px;
+    }
+
+    .system-name {
+        display: none;
+    }
+
+    .navbar {
+        height: 100px;
+    }
+}

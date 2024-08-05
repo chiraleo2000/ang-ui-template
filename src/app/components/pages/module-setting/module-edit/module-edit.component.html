@@ -1,0 +1,162 @@
+<div class="card-body adm-module-info-new">
+    <div class="card">
+        <dx-form [formData]="formData" [colCount]="2">
+            <dxi-item dataField="MODULE_SEQ" editorType="dxTextBox"
+                [editorOptions]="{ placeholder:'ลำดับการแสดงผล' , showClearButton:true }">
+                <dxo-label text="ลำดับการแสดงผล"></dxo-label>
+                <dxi-validation-rule type="required" message="กรุณาใส่ลำดับการแสดงผล">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="MODULE_CODE" editorType="dxTextBox" [editorOptions]="{ placeholder:'รหัสเมนู'}">
+                <dxo-label text="รหัสเมนู"></dxo-label>
+                <dxi-validation-rule type="required" message="กรุณาใส่รหัสเมนู">
+                </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="MODULE_ICON" editorType="dxTextBox" [editorOptions]="{ placeholder:'Icon ของเมนู' }">
+                <dxo-label text="Icon ของเมนู"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="MODULE_NAME" editorType="dxTextBox"
+                [editorOptions]="{ placeholder:'ชื่อเมนู' , showClearButton:true }">
+                <dxo-label text="ชื่อเมนู"></dxo-label>
+                <dxi-validation-rule type="required" message="กรุณาใส่ชื่อเมนู">
+                </dxi-validation-rule>
+            </dxi-item>
+
+            <dxi-item dataField template="temporglv">
+                <dxo-label text="เมนูที่เป็นตัวเหนือกว่า ">
+                </dxo-label>
+                <dxi-validation-rule type="required" message="กรุณาใส่เมนูที่เป็นตัวเหนือกว่า">
+                </dxi-validation-rule>
+            </dxi-item>
+            <div *dxTemplate="let data of 'temporglv'">
+                <dx-select-box [searchEnabled]="true" [dataSource]="moduleInfo" displayExpr="MODULE_NAME"
+                    valueExpr="MODULE_ID" searchExpr="MODULE_NAME" placeholder="Select"
+                    [(value)]="formData.MODULE_PARENT_ID"></dx-select-box>
+            </div>
+
+            <dxi-item dataField template="tempMenu">
+                <dxo-label text="ระดับของเมนู">
+                </dxo-label>
+                <dxi-validation-rule type="required" message="กรุณาใส่ระดับของเมนู">
+                </dxi-validation-rule>
+            </dxi-item>
+            <div *dxTemplate="let data of 'tempMenu'">
+                <dx-select-box [dataSource]="level" displayExpr="text" valueExpr="id" placeholder="Select"
+                    [(value)]="formData.MODULE_LEVEL"></dx-select-box>
+            </div>
+            <div>
+                sd
+            </div>
+            <dxi-item dataField template="tempMenuone">
+                <dxo-label text="เปิดแบบ New Window">
+                </dxo-label>
+                <dxi-validation-rule type="required" message="กรุณาใส่เปิดแบบ New Window">
+                </dxi-validation-rule>
+            </dxi-item>
+            <div *dxTemplate="let data of 'tempMenuone'">
+                <dx-select-box [dataSource]="windowFlag" displayExpr="text" valueExpr="id" placeholder="Select"
+                    [(value)]="formData.MODULE_NEW_WINDOW_FLAG">
+                </dx-select-box>
+            </div>
+
+            <dxi-item dataField="MODULE_MAIN_FLAG" editorType="dxRadioGroup" [editorOptions]="{value: formData.MODULE_MAIN_FLAG,
+                                        items:radioMainFlag, valueExpr:'id', displayExpr:'text',
+                                        layout:'horizontal'}">
+                <dxo-label text="เป็นเมนูหลัก"></dxo-label>
+            </dxi-item>
+
+            <dxi-item dataField="MODULE_URL" editorType="dxTextBox" [editorOptions]="{ placeholder:'URL ของเมนู' }">
+                <dxo-label text="URL ของเมนู"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="MODULE_REMARK" editorType="dxTextBox" [editorOptions]="{ placeholder:'คำอธิบาย' }">
+                <dxo-label text="คำอธิบาย"></dxo-label>
+            </dxi-item>
+            <!-- สถานะการใช้งาน -->
+            <dxi-item dataField="RECORD_STATUS" editorType="dxRadioGroup" [colSpan]="2" [editorOptions]="{value: formData.RECORD_STATUS,
+                                                    items:radioActive, valueExpr:'id', displayExpr:'text',
+                                                    layout:'horizontal'}">
+                <dxo-label text="สถานะการใช้งาน"></dxo-label>
+            </dxi-item>
+        </dx-form>
+    </div>
+    <div class="card" *ngIf="moduleIdform" style="margin-top: 20px;">
+        <!-- <div class="card-header card-header-rose card-header-icon">
+            <div class="card-icon"> -->
+        <p class="font-kanit-text-all"><span
+                class="not-mainfont fa fa-th-list">&nbsp;</span><span>สิทธิ์การใช้งาน</span>
+        </p>
+        <!-- </div>
+        </div> -->
+        <div class="card-body">
+            <div class="panel panel-default">
+                <div class="panel-body" style="text-align:right;">
+                    <dx-button icon="floppy" class="btn-add-datagrid" text="เพิ่ม" (onClick)="Add()">
+                    </dx-button>
+                </div>
+                <div class="panel-body" style="margin-top: 20px;">
+                    <dx-data-grid #grid [dataSource]="modulePriv" [showColumnLines]="true" noDataText="ไม่มีข้อมูล"
+                        [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true"
+                        [hoverStateEnabled]="true" [selectedRowKeys]="[]" [columnHidingEnabled]="true">
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-editing mode="cell" [allowUpdating]="false" [allowDeleting]="false" [allowAdding]="false">
+                        </dxo-editing>
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]" [showInfo]="true">
+                        </dxo-pager>
+                        <!-- <dxo-filter-row [visible]="true">
+                        </dxo-filter-row> -->
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxi-column dataField caption="ลำดับ" [width]="80" alignment="center" [allowEditing]="false"
+                            cellTemplate="cellTemplate"></dxi-column>
+                        <dxi-column dataField caption="แก้ไข" [width]="100" alignment="center" [allowSorting]="false"
+                            cellTemplate="cellTemplateCommand"></dxi-column>
+                        <div *dxTemplate="let d of 'cellTemplateCommand'">
+                            <dx-button icon="edit" hint="แก้ไข" type="default" (onClick)="Edit(d)">
+                            </dx-button>
+                        </div>
+                        <dxi-column dataField caption="ลบ" [width]="100" alignment="center" [allowSorting]="false"
+                            cellTemplate="cellTemplateCommands"></dxi-column>
+                        <div *dxTemplate="let d of 'cellTemplateCommands'">
+                            <dx-button-improve icon="trash" hint="ลบ" type="danger" (onClick)="Delete($event,d)">
+                            </dx-button-improve>
+                        </div>
+                        <dxi-column dataField="PERMISSION_NAME" caption="Permission" alignment="center">
+                        </dxi-column>
+
+                        <div *dxTemplate="let cell of 'cellTemplate'">
+                            {{ cell.component.pageIndex() *
+                            cell.component.pageSize() + cell.rowIndex + 1 }}
+                        </div>
+                    </dx-data-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" style="margin-top:18px; text-align: center; padding-right: 18px;">
+        <div class="panel-body ">
+            <div class="col-md-12">
+                <dx-button icon="revert" class="back-button btn-size" hint="ย้อนกลับ" text="ย้อนกลับ"
+                    (onClick)="Back()">
+                </dx-button>
+                &nbsp;
+                <dx-button-improve id="dx-button-improv" class="save-button btn-size" icon="floppy" text="บันทึก"
+                    [disabled]="!disabled" (clicked)="Save($event)">
+                </dx-button-improve>
+            </div>
+        </div>
+    </div>
+</div>
+
+<dx-popup class="popup" [width]="300" height="auto" [dragEnabled]="false" [closeOnOutsideClick]="false"
+    [showCloseButton]="false" [(visible)]="popupVisible" [showTitle]="false">
+    <h5 align="center" style="padding-top: 10px;">
+        <dx-select-box #select [dataSource]="permission" displayExpr="PERMISSION_NAME" valueExpr="PERMISSION_ID"
+            placeholder="SelectPermission" (onValueChanged)="OnSelect($event)"></dx-select-box>
+        <br>
+    </h5>
+    <p align="center" class="d-flex">
+        <dx-button class="back-button btn-size" icon="revert" text="ยกเลิก" (onClick)="NoAppove()">
+        </dx-button>&nbsp;&nbsp;&nbsp;
+        <dx-button icon="todo" class="save-button btn-size" text="ยืนยัน" (onClick)="Appove($event)">
+        </dx-button>
+    </p>
+</dx-popup>

@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <div class="card">
+        <dx-multi-view [focusStateEnabled]="false" [animationEnabled]="true" [swipeEnabled]="false"
+            [selectedIndex]="_index">
+            <dxi-item>
+                <div class="content-form">
+                    <dx-form labelLocation="top" [colCount]="2">
+                        <dxi-item dataField="PROVINCE_NAME_THA" editorType="dxTextBox"
+                            [editorOptions]="{ placeholder:'กรอกชื่อจังหวัดภาษาไทย'}">
+                            <dxo-label class="content-label" text="ชื่อจังหวัดภาษาไทย" [showColon]="false"></dxo-label>
+                        </dxi-item>
+                        <dxi-item dataField="PROVINCE_NAME_ENG" editorType="dxTextBox"
+                            [editorOptions]="{ placeholder:'กรอกชื่อจังหวัดภาษาอังกฤษ'}">
+                            <dxo-label class="content-label" text="ชื่อจังหวัดภาษาอังกฤษ" [showColon]="false"></dxo-label>
+                        </dxi-item>
+                        <dxi-item dataField="RECORD_STATUS" editorType="dxSelectBox"
+                            [editorOptions]="{dataSource:status, valueExpr:'id', displayExpr:'txt', placeholder:'เลือกสถานะการใช้งาน'}">
+                            <dxo-label text="สถานะการใช้งาน" [showColon]="false"></dxo-label>
+                        </dxi-item>
+                    </dx-form>
+                    <div class="button-container pt-5">
+                        <dx-button class="btn-search-list mr-3 btn-size" text="ค้นหา" icon="search" (onClick)="search($event)">
+                        </dx-button>&nbsp;&nbsp;&nbsp;
+                        <dx-button class="clear-search btn-size" text="ล้างการค้นหา" (onClick)="clearSearch($event)">
+                        </dx-button>
+                    </div>
+                </div>
+
+                <div class="content-form">
+                    <div class="content-form">
+                        <div class="text-end btn-header-group pb-2">
+                            <dx-button class="btn-add-datagrid" text="เพิ่ม" icon="plus" (onClick)="add()">
+                            </dx-button>
+                        </div>
+                        <dx-data-grid #grid [dataSource]="provinceSource" [showColumnLines]="true" noDataText="ไม่มีข้อมูล"
+                            [showRowLines]="true" [columnHidingEnabled]="true" [showBorders]="true"
+                            [rowAlternationEnabled]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]"
+                            noDataText="ไม่มีข้อมูล">
+                            <dxo-paging [pageSize]="10"></dxo-paging>
+                            <dxo-search-panel [visible]="true" [width]="200" placeholder="ค้นหา..."></dxo-search-panel>
+                            <dxo-editing mode="cell" [allowUpdating]="false" [allowDeleting]="false" [allowAdding]="false">
+                            </dxo-editing>
+                            <dxo-filter-row [visible]="false">
+                            </dxo-filter-row>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]" [showInfo]="true">
+                            </dxo-pager>
+                            <dxo-selection mode="single"></dxo-selection>
+                            <dxi-column dataField="" caption="แก้ไข" alignment="center" [allowSearch]="true" [width]="80"
+                                cellTemplate="cellTemplateEdit">
+                                <div *dxTemplate="let celldata of 'cellTemplateEdit'">
+                                    <dx-button class="btn-edit-datagrid" icon="fa fa-pencil" (onClick)="edit(celldata)">
+                                    </dx-button>
+                                </div>
+                            </dxi-column>
+                            <dxi-column dataField="" caption="ลำดับที่" [width]="80" alignment="center" [allowEditing]="false"
+                                cellTemplate="cellTemplate"></dxi-column>
+
+                            <dxi-column dataField="PROVINCE_NAME_THA" caption="ชื่อจังหวัดภาษาไทย " alignment="center ">
+                            </dxi-column>
+                            <dxi-column dataField="PROVINCE_NAME_ENG" caption="ชื่อจังหวัดภาษาอังกฤษ " alignment="center ">
+                            </dxi-column>
+                            <dxi-column dataField="RECORD_STATUS" caption="สถานะการใช้งาน " [width]="130 " alignment="center "
+                                [calculateDisplayValue]="getStatus">
+                            </dxi-column>
+                            <div *dxTemplate="let cell of 'cellTemplate' ">
+                                {{ cell.component.pageIndex() * cell.component.pageSize() + cell.rowIndex +
+                                1 }}
+                            </div>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </dxi-item>
+            <!-- Set 2 -->
+            <dxi-item>
+                <ng-container *dxTemplate="">
+                    <app-province-edit [mainForm]="this"></app-province-edit>
+                </ng-container>
+            </dxi-item>
+        </dx-multi-view>
+    </div>
+</div>

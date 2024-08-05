@@ -1,0 +1,261 @@
+<div class="card-body adm-module-info-new" style="padding-top: 3.9375rem;">
+    <div class="panel panel-default">
+        <div class="card">
+            <p class="font-kanit-text-all"><span class="not-mainfont fa fa-th-list">&nbsp;</span><span>ชื่อโมดูล
+                    {{appName}}</span>
+            </p>
+            <div class="card-body">
+                <div class="panel panel-default" style="margin-top:18px; text-align: right; ">
+                    <div class="panel-body row">
+                        <div class="col-md-12 pb-1">
+                            <dx-button icon="revert" class="back-button btn-size" hint="ย้อนกลับ" text="ย้อนกลับ"
+                                (onClick)="Back()">
+                            </dx-button>
+                            <dx-button-improve id="dx-button-improv" class="save-button btn-size" icon="floppy"
+                                text="บันทึก" (clicked)="Save($event)">
+                            </dx-button-improve>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <dx-form [formData]="formData" style="width: 75%;
+                        margin-left: 15%;" [readOnly]="readonly">
+
+                            <dxi-item dataField="ROLE_SEQ" editorType="dxTextBox"
+                                [editorOptions]="{ placeholder:'ลำดับการแสดงผล',showClearButton:true }"
+                                placeholder="ลำดับการแสดงผล">
+                                <dxo-label text="ลำดับการแสดงผล"></dxo-label>
+                                <dxi-validation-rule type="required" message="กรุณากรอกข้อมูล">
+                                </dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="ROLE_CODE" editorType="dxTextBox"
+                                [editorOptions]="{ placeholder:'รหัสสิทธิ์',showClearButton:true }"
+                                placeholder="รหัสสิทธิ์">
+                                <dxo-label text="รหัสสิทธิ์"></dxo-label>
+                                <dxi-validation-rule type="required" message="กรุณากรอกข้อมูล">
+                                </dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="ROLE_NAME" editorType="dxTextBox"
+                                [editorOptions]="{ placeholder:'ชื่อสิทธิ์',showClearButton:true }">
+                                <dxo-label text="ชื่อสิทธิ์" placeholder="ชื่อสิทธิ์"></dxo-label>
+                                <dxi-validation-rule type="required" message="กรุณากรอกข้อมูล">
+                                </dxi-validation-rule>
+                            </dxi-item>
+                            <dxi-item dataField="" template="temporglv">
+                                <dxo-label text="ระดับหน่วยงาน">
+                                </dxo-label>
+                            </dxi-item>
+                            <div *dxTemplate="let data of 'temporglv'">
+                                <dx-select-box [dataSource]="orgLv" displayExpr="text" valueExpr="id"
+                                    placeholder="ระดับหน่วยงาน" [(value)]="formData.ORG_LV" [showClearButton]="true"
+                                    [readOnly]="readonly">
+                                </dx-select-box>
+                            </div>
+                            <!-- สถานะการใช้งาน -->
+                            <dxi-item dataField="RECORD_STATUS" editorType="dxRadioGroup" [editorOptions]="{value: formData.RECORD_STATUS,
+                                            items:radioActive, valueExpr:'id', displayExpr:'text',
+                                            layout:'horizontal'}" [readOnly]="readonly">
+                                <dxo-label text="สถานะการใช้งาน"></dxo-label>
+                            </dxi-item>
+                        </dx-form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+
+            <p class="font-kanit-text-all"><span
+                    class="not-mainfont fa fa-th-list">&nbsp;</span><span>ผู้ใช้งานสิทธิ์นี้</span>
+            </p>
+            <div class="card-body">
+                <div class="panel panel-default">
+                    <div class="panel-body" style="margin-top: 20px;">
+                        <dx-data-grid #grid [dataSource]="formData.USER_ROLE" [showColumnLines]="true"
+                            [showRowLines]="true" [columnHidingEnabled]="true" [showBorders]="true"
+                            [hoverStateEnabled]="true" [twoWayBindingEnabled]="false"
+                            (onRowInserting)="OnUserRowInserting($event)" noDataText="ไม่มีข้อมูล">
+                            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                            <dxo-search-panel [visible]="true"></dxo-search-panel>
+                            <dxo-editing mode="cell" [allowUpdating]="false" [allowAdding]="true">
+                            </dxo-editing>
+                            <dxi-column dataField="" caption="ลำดับที่" [width]="80" alignment="center"
+                                [allowEditing]="false" cellTemplate="cellTemplate"></dxi-column>
+                            <dxi-column dataField="USER_ID" calculateDisplayValue="PERSONAL_FULL_NAME"
+                                caption="ชื่อ - สกุล" editCellTemplate="lookupEditor" alignment="center">
+                            </dxi-column>
+                            <dxi-column dataField="PERSONAL_FULL_NAME" caption="" [visible]="false" alignment="center">
+                            </dxi-column>
+                            <dxi-column dataField="POSITION_NAME" caption="ตำแหน่ง" alignment="center">
+                            </dxi-column>
+                            <dxi-column dataField="ORG_NAME" caption="หน่วยงาน" alignment="center">
+                            </dxi-column>
+                            <dxo-editing [allowDeleting]="true" [useIcons]="true">
+                                <dxo-texts confirmDeleteMessage=""></dxo-texts>
+                            </dxo-editing>
+                            <dxi-column caption="ลบ" alignment="center" type="buttons">
+                                <dxi-button name="delete" [onClick]=OnUserDeleteButtonClicked></dxi-button>
+                            </dxi-column>
+
+                            <div *dxTemplate="let cellInfo of 'lookupEditor'">
+                                <dx-lookup [dataSource]="persolnalAll" [value]="cellInfo.value"
+                                    displayExpr="PERSONAL_FULL_NAME"
+                                    (onValueChanged)="OnUserValueChanged($event, cellInfo)" [showPopupTitle]="false"
+                                    [showCancelButton]="false" [showClearButton]="true" clearButtonText="ล้างค่า"
+                                    noDataText="ไม่พบข้อมูล" [popupHeight]="300">
+                                </dx-lookup>
+                            </div>
+
+
+                            <div *dxTemplate="let cell of 'cellTemplate'">
+                                {{ cell.data.USER_ID ? (cell.component.pageIndex() * cell.component.pageSize() +
+                                cell.rowIndex + 1) : formData.USER_ROLE.length + 1 }}
+                            </div>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" *ngIf="disabledApprov" style="margin-top: 20px;">
+            <!-- <div class="card-header card-header-rose card-header-icon">
+                <div class="card-icon"> -->
+            <p class="font-kanit-text-all"><span
+                    class="not-mainfont fa fa-th-list">&nbsp;</span><span>สิทธิ์การใช้งาน</span>
+            </p>
+            <!-- </div> -->
+            <div class="card-body">
+                <div class="panel panel-default">
+                    <div class="panel-body" style="margin-top: 20px;">
+                        <div class="panel panel-default" style="margin-top:18px; text-align: right; ">
+                            <div class="panel-body ">
+                                <div class="col-md-12 pb-2">
+                                    <div *ngIf="roolRoot">
+                                        <dx-button-improve icon="fa fa-plus-circle" type="default" text="อัพเดท"
+                                            (clicked)="Add($event)"></dx-button-improve>
+
+                                        <dx-button-improve id="dx-button-improv" class="save-button btn-size"
+                                            icon="floppy" text="บันทึก" (clicked)="SavePermission($event)">
+                                        </dx-button-improve>
+                                    </div>
+                                    <div *ngIf="!roolRoot"><br><br><br></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <dx-tree-list #grid [dataSource]="roleUser" keyExpr="MODULE_ID" parentIdExpr="MODULE_PARENT_ID"
+                            [showColumnLines]="true" noDataText="ไม่มีข้อมูล"
+                            [wordWrapEnabled]="true" [showRowLines]="true" [showBorders]="true"
+                            [rowAlternationEnabled]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]">
+                            <dxo-scrolling mode="standard"></dxo-scrolling>
+                            <dxo-paging [pageSize]="10"></dxo-paging>
+                            <dxo-editing mode="cell" [allowUpdating]="false" [allowDeleting]="false"
+                                [allowAdding]="false">
+                            </dxo-editing>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]"
+                                [showInfo]="true">
+                            </dxo-pager>
+                            <dxo-selection mode="single"></dxo-selection>
+                            <dxi-column dataField="" caption="ลำดับที่" [width]="80" alignment="center"
+                                [allowEditing]="false" cellTemplate="cellTemplate"></dxi-column>
+
+                            <dxi-column dataField="" caption="Name" [width]="250" alignment="center"
+                                cellTemplate="cellTemplateCommandsIcon">
+                            </dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommandsIcon'">
+                                <div *ngIf="d.data.MODULE_LEVEL === 1">
+                                    <div style="display: flex; padding-top: 10px;">
+                                        <span class="fa {{IsIconStatus(d)}}" style="font-size: 16px;">
+                                        </span>
+                                        <span style="padding-left: 5px;">{{IsNameStatus(d)}}</span>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="d.data.MODULE_LEVEL === 2">
+                                    <div style="display: flex; padding-top: 10px; padding-left: 30px;">
+                                        <span class="fa {{IsIconStatus(d)}}" style="font-size: 16px;">
+                                        </span>
+                                        <span style="padding-left: 5px;">{{IsNameStatus(d)}}</span>
+                                    </div>
+                                </div>
+                                <div *ngIf="d.data.MODULE_LEVEL === 3">
+                                    <div style="display: flex; padding-top: 10px; padding-left: 60px;">
+                                        <span class="fa {{IsIconStatus(d)}}" style="font-size: 16px;">
+                                        </span>
+                                        <span style="padding-left: 5px;">{{IsNameStatus(d)}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <dxi-column dataField="" caption="Add" alignment="center" [allowSorting]="false"
+                                cellTemplate="cellTemplateCommand1"></dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommand1'">
+
+                                <dx-check-box [value]="OnValueCheck(d,1)" [visible]="IsCheckVisible(d,1)"
+                                    [readOnly]="readonly" (onValueChanged)="OnCheck($event, d, 1)">
+                                </dx-check-box>
+                            </div>
+                            <dxi-column dataField="" caption="Edit" alignment="center" [allowSorting]="false"
+                                cellTemplate="cellTemplateCommand2"></dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommand2'">
+
+                                <dx-check-box [value]="OnValueCheck(d,2)" [visible]="IsCheckVisible(d,2)"
+                                    [readOnly]="readonly" (onValueChanged)="OnCheck($event, d, 2)">
+                                </dx-check-box>
+                            </div>
+                            <dxi-column dataField="" caption="Delete" alignment="center" [allowSorting]="false"
+                                cellTemplate="cellTemplateCommand3"></dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommand3'">
+
+                                <dx-check-box [value]="OnValueCheck(d,3)" [visible]="IsCheckVisible(d,3)"
+                                    [readOnly]="readonly" (onValueChanged)="OnCheck($event, d, 3)"></dx-check-box>
+                            </div>
+
+                            <dxi-column dataField="" caption="View Only" alignment="center"
+                                cellTemplate="cellTemplateCommand4">
+                            </dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommand4'">
+                                <dx-check-box [value]="OnValueCheck(d,4)" [visible]="IsCheckVisible(d,4)"
+                                    [readOnly]="readonly" (onValueChanged)="OnCheck($event, d, 4)"></dx-check-box>
+
+                            </div>
+                            <dxi-column dataField="" caption="Upload" alignment="center"
+                                cellTemplate="cellTemplateCommand5">
+                            </dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommand5'">
+                                <dx-check-box [value]="OnValueCheck(d,5)" [visible]="IsCheckVisible(d,5)"
+                                    [readOnly]="readonly" (onValueChanged)="OnCheck($event, d, 5)"></dx-check-box>
+
+                            </div>
+                            <dxi-column dataField="" caption="Download" alignment="center"
+                                cellTemplate="cellTemplateCommand6">
+                            </dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommand6'">
+                                <dx-check-box [value]="OnValueCheck(d,6)" [visible]="IsCheckVisible(d,6)"
+                                    [readOnly]="readonly" (onValueChanged)="OnCheck($event, d, 6)"></dx-check-box>
+                            </div>
+                            <div *dxTemplate="let cell of 'cellTemplate'">
+                                {{ cell.component.pageIndex() * cell.component.pageSize() + cell.rowIndex + 1 }}
+                            </div>
+                        </dx-tree-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default" style="margin-top:18px; text-align: center; padding-right: 18px;">
+            <div class="panel-body ">
+                <div class="col-md-12">
+                    <dx-button  icon="revert" class="back-button btn-size" hint="ย้อนกลับ" text="ย้อนกลับ" (onClick)="Back()">
+                    </dx-button>
+                    &nbsp;
+                    <dx-button-improve id="dx-button-improv" class="save-button btn-size" icon="floppy"  text="บันทึก" [disabled]="!disabled"
+                        (clicked)="Save($event)">
+                    </dx-button-improve>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

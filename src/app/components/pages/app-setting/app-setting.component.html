@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="card">
+        <dx-multi-view [swipeEnabled]="false" [selectedIndex]="0">
+            <dxi-item>
+                <div class="card-body ">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div style="text-align: right;">
+                                <dx-button icon="add" class="btn-add-datagrid" text="เพิ่ม"
+                                    (onClick)="Add()">
+                                </dx-button>
+                            </div>
+                        </div>
+                        <br>
+                        <dx-data-grid #grid [dataSource]="appinfo" [showColumnLines]="true" noDataText="ไม่มีข้อมูล"
+                            [showRowLines]="true" [columnHidingEnabled]="true" [showBorders]="true"
+                            [rowAlternationEnabled]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]"
+                            noDataText="ไม่มีข้อมูล">
+                            <dxo-paging [pageSize]="10"></dxo-paging>
+                            <dxo-search-panel [visible]="true" [width]="240" placeholder="ค้นหา..."></dxo-search-panel>
+                            <dxo-editing mode="cell" [allowUpdating]="false" [allowDeleting]="false"
+                                [allowAdding]="false">
+                            </dxo-editing>
+                            <dxo-filter-row [visible]="true">
+                            </dxo-filter-row>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]"
+                                [showInfo]="true">
+                            </dxo-pager>
+                            <dxo-selection mode="single"></dxo-selection>
+                            <dxi-column dataField="" caption="ลำดับที่" [width]="80" alignment="center"
+                                [allowEditing]="false" cellTemplate="cellTemplate"></dxi-column>
+                            <dxi-column dataField="" caption="แก้ไข" [width]="80" alignment="center"
+                                [allowSorting]="false" cellTemplate="cellTemplateCommand"></dxi-column>
+                            <div *dxTemplate="let d of 'cellTemplateCommand'">
+                                <dx-button icon="edit" hint="แก้ไข" requirePermission="EDIT" type="default"
+                                    (onClick)="Edit(d)">
+                                </dx-button>
+                            </div>
+
+                            <dxi-column dataField="APP_SEQ" caption="ลำดับที่ Module" [width]="130" alignment="center"
+                                [allowEditing]="false" sortOrder="asc"></dxi-column>
+                            <dxi-column dataField="APP_CODE" caption="รหัส Module" alignment="center" [width]="130">
+                            </dxi-column>
+                            <dxi-column dataField="APP_NAME" caption="ชื่อ Module" alignment="center">
+                            </dxi-column>
+                            <dxi-column dataField="APP_REMARK" caption="คำอธิบาย Module" alignment="left">
+                            </dxi-column>
+
+                            <dxi-column dataField="RECORD_STATUS" caption="สถานะการใช้งาน" [width]="130"
+                                alignment="center" [calculateDisplayValue]="GetStatus">
+                            </dxi-column>
+
+                            <div *dxTemplate="let cell of 'cellTemplate'">
+                                {{ cell.component.pageIndex() * cell.component.pageSize() + cell.rowIndex + 1 }}
+                            </div>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </dxi-item>
+            <dxi-item>
+                <app-app-edit [formData]="formAppInfo"></app-app-edit>
+            </dxi-item>
+        </dx-multi-view>
+    </div>
+</div>

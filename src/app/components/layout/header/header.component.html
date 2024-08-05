@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+
+    <dx-button *ngIf="buttonVisable" (click)="menuOpenedEvent()" id="button-responsive-collap" class="me-auto">
+        <i class="fas fa-angle-left"></i>
+    </dx-button>
+
+    <dx-button *ngIf="!buttonVisable" (click)="menuOpenedEvent()" id="button-responsive" class="me-auto">
+        <i class="fas fa-angle-right"></i>
+    </dx-button>
+
+
+    <dx-drop-down-button [wrapItemText]="true" id="buttongroup" [dropDownOptions]="{ width: 230 }"
+        icon="fas fa-align-justify" [items]="menu" displayExpr="name" (onItemClick)="onDropDownClick($event)"
+        class="d-inline-block d-lg-none ms-auto" type="button">
+    </dx-drop-down-button>
+
+    <div class="collapse navbar-collapse">
+        <ul class="system-name nav navbar-nav ps-5 me-auto">
+            <li class="nav-item">
+                <div class="line font-head">
+                    ระบบจัดการสิทธิ์
+                </div>
+            </li>
+        </ul>
+        <ul class="lowui nav navbar-nav" style="margin-left: auto;">
+            <li class="nav-item m-auto">
+                <div class="border-block">
+                    <div class="fa fa-bell"></div>
+                </div>
+            </li>
+            <li class="nav-item active ps-3">
+                <div class="display-title-name">
+                    <p class="txttitle-user m-0">
+                        {{usershow.FullNameTH}}
+                    <p class="txttitle-user m-0">
+                        {{usershow.PositionNameTH}}
+                    </p>
+                    <p class="txttitle-user m-0">
+                        {{usershow.Role.OrganizeName}}</p>
+                </div>
+            </li>
+            <li class="nav-item m-auto ps-3">
+                <div class=" border-block">
+                    <div id="user-menu" class="navbar-user-image">
+                        <img alt="" src="assets/img/user.png" width=32 height=32 />
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item m-auto ps-3">
+                <dx-drop-down-button id="drophead" [items]="profileSettings" [dropDownOptions]="{ width: 200}"
+                    [splitButton]="true" displayExpr="text" keyExpr="id"
+                    (onItemClick)="onDropDownClick($event)"></dx-drop-down-button>
+            </li>
+        </ul>
+    </div>
+</nav>

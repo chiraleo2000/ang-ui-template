@@ -1,0 +1,57 @@
+<div class="card-body " style="padding-bottom: 300px;">
+    <div class="panel panel-default">
+        <div class="panel-body ">
+
+            <dx-form [formData]="formAppOrgInfo" style="width: 75%;
+            margin-left: 15%;">
+
+                <!-- หน่วยงาน -->
+                <dxi-item template="tempDataOrg">
+                    <dxo-label text="หน่วยงาน"></dxo-label>
+                    <dxi-validation-rule type="required" message="กรุณาเลือกอำเภอ">
+                    </dxi-validation-rule>
+                </dxi-item>
+                <div *dxTemplate="let data of 'tempDataOrg'">
+                    <dx-select-box #select [dataSource]="org" displayExpr="ORGANIZE_NAME_THA"
+                        valueExpr="ORGANIZE_ROOT_ID" searchExpr="ORGANIZE_NAME_THA"
+                        [(value)]="formAppOrgInfo.ORG_ROOT_ID" [searchEnabled]="true" placeholder="เลือกหน่วยงาน">
+                    </dx-select-box>
+                </div>
+
+
+                <!-- แอปพลิเคชั่น -->
+                <dxi-item template="tempApp">
+                    <dxo-label text="Module"></dxo-label>
+                    <dxi-validation-rule type="required" message="กรุณาเลือกอำเภอ">
+                    </dxi-validation-rule>
+                </dxi-item>
+                <div *dxTemplate="let data of 'tempApp'">
+                    <dx-select-box [dataSource]="appInfo" displayExpr="APP_NAME" valueExpr="APP_ID" placeholder="Module"
+                        [(value)]="formAppOrgInfo.APP_ID">
+                    </dx-select-box>
+
+                </div>
+                <!-- สถานะการใช้งาน -->
+                <dxi-item dataField="RECORD_STATUS" editorType="dxRadioGroup" [editorOptions]="{value: formAppOrgInfo.RECORD_STATUS,
+                                        items:radioActive, valueExpr:'id', displayExpr:'text',
+                                        layout:'horizontal'}">
+                    <dxo-label text="สถานะการใช้งาน"></dxo-label>
+                </dxi-item>
+            </dx-form>
+
+        </div>
+        <div class="panel panel-default" style="margin-top:18px; text-align: center; ">
+            <div class="panel-body ">
+                <div class="col-md-12">
+                    <dx-button icon="revert" class="back-button btn-size" hint="ย้อนกลับ" text="ย้อนกลับ"
+                        (onClick)="Back()">
+                    </dx-button>
+                    &nbsp;
+                    <dx-button-improve id="dx-button-improv" class="save-button btn-size" icon="floppy" text="บันทึก"
+                        (clicked)="Save($event)">
+                    </dx-button-improve>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

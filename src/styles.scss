@@ -1,0 +1,543 @@
+@font-face {
+    font-family: Sarabun;
+    src: url(assets/fonts/Sarabun-Light.ttf) format("opentype");
+}
+
+* {
+    font-family: Sarabun;
+}
+
+.font-kanit-text {
+    font-family: Sarabun !important;
+    font-size: 16px;
+}
+
+.font-kanit-text-all-10 * {
+    font-family: Sarabun !important;
+    font-size: 10px;
+}
+
+.font-kanit-text-all * :not(i, .not-mainfont, .dx-dropdowneditor-icon) {
+    font-family: Sarabun !important;
+    font-size: 16px;
+}
+
+::ng-deep .font-kanit-in-dx *:not(.dx-dropdowneditor-icon) {
+    font-family: Sarabun;
+    font-size: 16px;
+}
+
+.font-kanit-all *:not(.dx-dropdowneditor-icon, .not-title-fornt, .dx-icon) {
+    font-family: Sarabun !important;
+    font-size: 16px;
+}
+
+p {
+    font-family: Sarabun !important;
+}
+
+.dx-widget input,
+.dx-widget textarea:not(i) {
+    font-family: Sarabun !important;
+    font-size: 16px;
+}
+
+.fa-small.dx-icon {
+    font-size: 1em !important;
+    width: auto;
+    height: auto;
+    line-height: normal;
+}
+
+html {
+    background: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.dx-popup-title.dx-toolbar {
+    padding: 6px 20px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #fff;
+}
+
+.container-fluid {
+    padding-bottom: 100px;
+}
+
+.card-body {
+    padding: unset !important;
+}
+
+.dx-datagrid-text-content {
+    color: #F4B51A !important;
+    // color: #000 !important;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////// THIS IS FORM IO STOP PASTE CODE IN THIS AREA /////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+.panal-style {
+    font-size: 15px;
+}
+
+.font-z {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 22px;
+    color: #00529a;
+}
+
+.input-des {
+    margin-left: -70px;
+    margin-right: 250px;
+}
+
+.header-text-form-two {
+    background-color: #3f5ca2;
+    color: white;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+.wizard-page {
+    background-color: #fafdff;
+    padding: 15px;
+}
+
+.list-group-item:first-child {
+    color: white;
+    background-color: #41ad49;
+}
+
+.bg-info {
+    background-color: #41ad49 !important;
+    border-color: #41ad49 !important;
+}
+
+.bg-blue {
+    background-color: #41ad49 !important;
+    border-color: #41ad49 !important;
+}
+
+.btn-primary {
+    background-color: #41ad49 !important;
+    border-color: #41ad49 !important;
+}
+
+.btn-info {
+    background-color: #41ad49 !important;
+    border-color: #41ad49 !important;
+}
+
+.page-item.active .page-link {
+    background-color: #ffffff !important;
+    border-color: #41ad49 !important;
+    border-bottom: solid 4px #41ad49 !important;
+    color: #41ad49 !important;
+}
+
+.pagination .page-item .page-link {
+    display: grid !important;
+    align-items: center !important;
+    width: 224px !important;
+    height: 60px !important;
+    text-align: center !important;
+    margin: 10px !important;
+}
+
+.notifier__notification {
+    width: 335px;
+    height: 120px;
+    background-color: white;
+    border-color: #2e4765;
+    border: 2px solid #2e4765;
+}
+
+.notifier__notification-button-icon {
+    fill: black !important;
+}
+
+.notifier__notification-button {
+    position: absolute;
+    top: 1px;
+    right: 10px;
+}
+
+.fa-plus-square-o:before {
+    content: "\f0d7";
+    color: #fff;
+    font-size: 20px;
+}
+
+.fa-minus-square-o:before {
+    content: "\f0d8";
+    color: #fff;
+    font-size: 20px;
+}
+
+.formio-collapse-icon {
+    // visibility: hidden !important;
+    float: right;
+}
+
+.card-body a img {
+    width: 32px;
+    height: 32px;
+}
+
+.card-body label img {
+    width: 43px;
+    height: 43px;
+}
+
+.card {
+    padding: 50px;
+    border: 2px solid #8D2621;
+}
+
+.dashboard_header .dashboard_header_title h3 {
+    color: #2e4765 !important;
+}
+
+.dx-datagrid-search-panel {
+    margin: 0 0 0 5px !important;
+    width: 250px !important;
+}
+
+.dx-datagrid-headers {
+    color: #F4B51A !important;
+    background-color: #8D2621 !important;
+}
+
+.dx-datagrid-headers .dx-datagrid-table .dx-row>td {
+    background-color: #8D2621 !important;
+}
+
+.dx-datagrid-rowsview.dx-datagrid-nowrap {
+    border: 1px solid #d5d5d5 !important;
+}
+
+.dx-datagrid .dx-row>td {
+    padding: 10px !important;
+    font-size: 14px;
+}
+
+.dx-datagrid-filter-row .dx-menu {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+    height: 100%;
+    overflow: visible;
+}
+
+.dx-datagrid-content .dx-datagrid-table .dx-row>td {
+    vertical-align: middle !important;
+}
+
+@media (max-width: 575.98px) {
+    .page-mobile-mode .dx-layout-manager.dx-layout-manager-one-col .dx-single-column-item-content>.dx-field-item {
+        display: block !important;
+    }
+}
+
+.line-end {
+    margin: 20px 0% 20px 0%;
+    border-bottom: 2px solid #025437;
+}
+
+::ng-deep .dx-datagrid-content .dx-datagrid-table [class*="column"]+[class*="column"]:last-child {
+    float: none;
+    background-color: rgb(235, 235, 235) !important;
+}
+
+.dx-toolbar-label .dx-toolbar-item-content>div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #000;
+}
+
+.swal2-container {
+    display: flex;
+    position: fixed;
+    z-index: 1060;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: .625em;
+    overflow-x: hidden;
+    transition: background-color .1s;
+    -webkit-overflow-scrolling: touch;
+    z-index: 9999 !important;
+}
+
+.list-inline {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+    margin-top: -1.8% !important;
+
+
+}
+
+.formio-component-button {
+    float: left !important;
+    margin-right: 15px !important;
+    margin-top: 0 !important;
+}
+
+
+.dx-treelist-headers .dx-treelist-table .dx-row>td {
+    background-color: #8D2621;
+    color: #F4B51A
+}
+
+
+.text-link {
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.75;
+    }
+}
+
+dx-button.dx-btn.back {
+    width: 160px;
+    height: 60px;
+    background: #FFFFFF;
+    border: 1px solid #28A745;
+    border-radius: 5px;
+    color: #28A745;
+    background-color: #ffffff;
+    border-color: #28A745;
+
+    .dx-icon {
+        color: #28A745;
+    }
+
+    &.padding {
+        margin-left: 35px;
+    }
+
+    &:hover {
+        color: #ffffff;
+
+        color: #ffffff;
+        background-color: #28A745;
+
+        .dx-button-text {
+            color: #ffffff;
+
+        }
+
+        .dx-icon {
+            color: #ffffff;
+        }
+    }
+}
+
+dx-button.dx-btn.backMenu {
+    width: 130px;
+    height: 45px;
+    background: #FFFFFF;
+    border: 1px solid #28A745;
+    border-radius: 5px;
+    color: #28A745;
+    background-color: #ffffff;
+    border-color: #28A745;
+
+    .dx-icon {
+        color: #28A745;
+    }
+
+    &:hover {
+        color: #ffffff;
+
+        color: #ffffff;
+        background-color: #28A745;
+
+        .dx-button-text {
+            color: #ffffff;
+
+        }
+
+        .dx-icon {
+            color: #ffffff;
+        }
+    }
+}
+
+dx-button.dx-btn.submit {
+    background: #FFFFFF;
+    border: 1px solid #28A745;
+    border-radius: 5px;
+    color: #28A745;
+    background-color: #ffffff;
+    border-color: #28A745;
+
+    .dx-icon {
+        color: #28A745;
+    }
+
+    &:hover {
+        color: #ffffff;
+
+        color: #ffffff;
+        background-color: #28A745;
+
+        .dx-button-text {
+            color: #ffffff;
+
+        }
+
+        .dx-icon {
+            color: #ffffff;
+        }
+    }
+}
+
+dx-button.dx-btn.submit-v2 {
+    background: #28A745;
+
+    border-radius: 5px;
+    color: #FFFFFF;
+    background-color: #28A745;
+    border-color: #FFFFFF;
+
+    .dx-icon {
+        color: #FFFFFF;
+    }
+
+    &:hover {
+        opacity: 0.75;
+    }
+}
+
+
+dx-button.dx-btn.cancel {
+    background: #FFFFFF;
+    border: 1px solid #E04040;
+    border-radius: 5px;
+    color: #E04040;
+    background-color: #ffffff;
+    border-color: #E04040;
+
+    .dx-icon {
+        color: #E04040;
+    }
+
+    &:hover {
+        color: #ffffff;
+
+        color: #ffffff;
+        background-color: #E04040;
+
+        .dx-button-text {
+            color: #ffffff;
+
+        }
+
+        .dx-icon {
+            color: #ffffff;
+        }
+    }
+}
+
+.dx-scrollable-content::after {
+    height: 100%
+}
+
+.dx-toolbar .dx-button-mode-contained {
+    background-color: #F4B51A ;
+}
+
+.dx-toolbar .dx-button-mode-contained.dx-state-hover {
+    background-color: #F4B51A ;
+}
+
+.text-header {
+    font-size: 30px;
+    line-height: 48px;
+    padding: 10px 10px 30px 10px;
+    font-weight: bold;
+}
+
+.dx-field-item-label-text {
+    font-size: 18px;
+}
+
+.dx-widget textarea {
+    height: 200px;
+}
+
+.dx-texteditor-input {
+    height: 40px;
+}
+
+.edit-img {
+    width: 28px;
+    height: 28px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+::ng-deep .card {
+    border-radius: 10px;
+}
+
+.image-size-36 {
+    width: 36px;
+    height: 36px;
+}
+
+.image-size-20 {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-padding-20 {
+    padding: 20px 20px 20px 20px;
+}
+
+.component-icon-loading {
+    font-size: 16px !important;
+}
+
+.dx-treelist-rowsview .dx-treelist-table-fixed .dx-treelist-icon-container {
+    padding: 5px;
+}
+
+.dx-treelist-rowsview.dx-treelist-nowrap .dx-treelist-table .dx-treelist-cell-expandable .dx-treelist-text-content {
+    padding: 5px;
+}
+
+.dx-treelist-rowsview .dx-treelist-expanded span::before {
+    color: #8D2621;
+}
+
+.dx-treelist-rowsview .dx-treelist-collapsed span::before {
+    color: #8D2621;
+}
+
+
+
+#dx-button-improv .dx-button-normal:not(.btn-add-datagrid) .dx-button-content > i.dx-icon {
+    color: #fff !important;
+}
+
+.dx-button-normal:not(.btn-add-datagrid) .dx-button-content > i.dx-icon {
+    color: white !important;
+}
